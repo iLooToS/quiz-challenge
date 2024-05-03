@@ -1,24 +1,24 @@
+const readline = require('readline');
+const questionsAndAnswers = require('./QandA');
 
-const readline = require("readline");
-const questionsAndAnswers = require("./QandA");
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
-const fs = require("fs");
-const { EOL } = require("os");
-const path = require("path");
+const fs = require('fs');
+const { EOL } = require('os');
+const path = require('path');
 
 class Model {
   readFile() {
     const arrOfObj = [];
-    const pathToDir = path.join(__dirname, "..", "topics");
+    const pathToDir = path.join(__dirname, '..', 'topics');
     const folder = fs.readdirSync(pathToDir);
 
     for (let i = 0; i < folder.length; i += 1) {
       let count = 0;
       const pathToFile = `${pathToDir}/${folder[i]}`;
-      const category = fs.readFileSync(pathToFile, "utf-8").trim();
+      const category = fs.readFileSync(pathToFile, 'utf-8').trim();
       const categoryArr = category.split(EOL);
       for (let j = 0; j < categoryArr.length - 1; j += 1) {
         const obj = {};
@@ -34,17 +34,17 @@ class Model {
     }
     return arrOfObj;
   }
+
   askQuestion() {
     if (currentQuestionIndex < filteredQuestions.length) {
       const currentQuestion = filteredQuestions[currentQuestionIndex].question;
       console.log('=============================================');
-      console.log(`Вопрос:\r\n`, `${currentQuestion}\r\n`);
+      console.log('Вопрос:\r\n', `${currentQuestion}\r\n`);
 
-      rl.question(`Введите ответ: \r\n`, (answer) => {
+      rl.question('Введите ответ: \r\n', (answer) => {
         const correctAnswer = filteredQuestions[currentQuestionIndex].answer;
 
-        const correct =
-          answer.trim().toLowerCase() === correctAnswer.toLowerCase();
+        const correct = answer.trim().toLowerCase() === correctAnswer.toLowerCase();
         printResultIcon(correct);
 
         if (correct) {
@@ -59,8 +59,7 @@ class Model {
       console.log(`Результат: ${correctAnswers}/${totalQuestions}`);
 
       rl.close();
-    
+    }
   }
 }
-module.exports = Model
-
+module.exports = Model;
