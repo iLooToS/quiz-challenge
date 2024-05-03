@@ -1,34 +1,37 @@
-const readline = require("readline");
+const readline = require('readline');
 // const questionsAndAnswers = require("./QandA");
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout,
 });
+const Controller = require('../Controller/controller');
 
 class View {
+  // constructor() {
+  //   this.controller = new Controller();
+  // }
+
   chooseCategory() {
-    console.log("Категории вопросов:");
-    console.log("1. Eat");
-    console.log("2. Elbrus");
-    console.log("3. Fanny");
-    rl.question("Выберите категорию вопросов (введите номер): ", (category) => {
+    console.log('Категории вопросов:');
+    console.log('1. Eat');
+    console.log('2. Elbrus');
+    console.log('3. Musik');
+    rl.question('Выберите категорию вопросов (введите номер): ', (category) => {
       if (category >= 1 && category <= 3) {
-        startQuiz(parseInt(category));
+        this.controller.startQuiz(parseInt(category));
       } else {
-        console.log("Упс, ошибочка... Пожалуйста, введите число от 1 до 3.");
-        chooseCategory();
+        console.log('Упс, ошибочка... Пожалуйста, введите число от 1 до 3.');
+        this.chooseCategory();
       }
     });
   }
 
-  // View
   static printResultIcon(correct) {
     if (correct) {
-      console.log("🎆 Верно! Ты молодец!");
+      console.log('🎆 Верно! Ты молодец!');
     } else {
-      console.log("🤯 Неверно!");
+      console.log('🤯 Неверно!');
     }
   }
 }
-console.log("🤯 Неверно!");
-console.log("🎆 Верно! Ты молодец!")
+module.exports = View;
