@@ -1,8 +1,6 @@
 const readline = require('readline');
-// const questionsAndAnswers = require('./QandA');
 const fs = require('fs');
 const { EOL } = require('os');
-const path = require('path');
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -11,7 +9,6 @@ const rl = readline.createInterface({
 
 function readFile() {
   const arrOfObj = [];
-  const pathToDir = path.join(__dirname, '..', 'topics');
   const folder = fs.readdirSync('./topics');
 
   for (let i = 0; i < folder.length; i += 1) {
@@ -34,16 +31,13 @@ function readFile() {
   return arrOfObj;
 }
 
-
 const files = readFile();
 
-console.log(files);
-// View
 function chooseCategory() {
   console.log('Категории вопросов:');
-  console.log('1. Категория 1');
-  console.log('2. Категория 2');
-  console.log('3. Категория 3');
+  console.log('1. Еда');
+  console.log('2. Эльбрус');
+  console.log('3. Смешное(очень)');
   rl.question('Выберите категорию вопросов (введите номер): ', (category) => {
     if (category >= 1 && category <= 3) {
       startQuiz(parseInt(category));
@@ -56,26 +50,24 @@ function chooseCategory() {
   });
 }
 
-// View
 function printResultIcon(correct) {
   if (correct) {
-    console.log('✅ Верно!');
+    console.log('✅ Верно! ✅');
   } else {
-    console.log('❌ Неверно!');
+    console.log('❌ Неверно! ❌');
   }
 }
 
-// Controller
 function startQuiz(category) {
   const filteredQuestions = files.filter(
     (q) => q.category === category
   );
   let currentQuestionIndex = 0;
   let correctAnswers = 0;
-  // Model
   function askQuestion() {
     if (currentQuestionIndex < filteredQuestions.length) {
       const currentQuestion = filteredQuestions[currentQuestionIndex].question;
+      console.log('=================================================================================================');
       console.log('Вопрос:', currentQuestion);
       rl.question('Введите ответ: ', (answer) => {
         const correctAnswer = filteredQuestions[currentQuestionIndex].answer;
@@ -89,7 +81,9 @@ function startQuiz(category) {
       });
     } else {
       const totalQuestions = filteredQuestions.length;
+      console.log('=================================================================================================');
       console.log(`Результат: ${correctAnswers}/${totalQuestions}`);
+      console.log('=================================================================================================');
       rl.close();
     }
   }
