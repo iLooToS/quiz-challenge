@@ -10,7 +10,7 @@ class View {
     console.log("Категории вопросов:");
     console.log("1. Eat");
     console.log("2. Elbrus");
-    console.log("3. Musik");
+    console.log("3. Fanny");
     rl.question("Выберите категорию вопросов (введите номер): ", (category) => {
       if (category >= 1 && category <= 3) {
         startQuiz(parseInt(category));
@@ -30,5 +30,5 @@ class View {
     }
   }
 }
-// console.log("🤯 Неверно!");
-// console.log("🎆 Верно! Ты молодец!")
+console.log("🤯 Неверно!");
+console.log("🎆 Верно! Ты молодец!")
