@@ -1,21 +1,16 @@
 const fs = require("fs");
 const { EOL } = require("os");
-const path = require('path');
+const path = require("path");
 
 class Model {
-  // constructor(question, answer) {
-  //   this.question = question;
-  //   this.answer = answer;
-  // }
-
   readFile() {
     const arrOfObj = [];
-    const pathToDir = path.join(__dirname, '..', 'topics')
+    const pathToDir = path.join(__dirname, "..", "topics");
     const folder = fs.readdirSync(pathToDir);
 
     for (let i = 0; i < folder.length; i += 1) {
       let count = 0;
-      const pathToFile = pathToDir + '/'+ folder[i]
+      const pathToFile = `${pathToDir}/${folder[i]}`;
       const category = fs.readFileSync(pathToFile, "utf-8").trim();
       const categoryArr = category.split(EOL);
       for (let j = 0; j < categoryArr.length - 1; j += 1) {
